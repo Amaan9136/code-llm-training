@@ -1,0 +1,122 @@
+model:
+  base_model: "microsoft/phi-2"
+  model_type: "causal_lm"
+  max_length: 2048
+  trust_remote_code: true
+
+training:
+  output_dir: "outputs/model"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 2.0e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  lr_scheduler_type: "cosine"
+  logging_steps: 10
+  eval_steps: 100
+  save_steps: 200
+  save_total_limit: 3
+  evaluation_strategy: "steps"
+  load_best_model_at_end: true
+  fp16: false
+  bf16: true
+  dataloader_num_workers: 4
+  remove_unused_columns: false
+  report_to: "none"
+  ddp_find_unused_parameters: false
+
+peft:
+  enabled: true
+  method: "lora"
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+  target_modules: ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+
+quantization:
+  enabled: false
+  load_in_4bit: false
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
+
+data:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  dataset_dir: "data/dataset"
+  train_split: 0.9
+  val_split: 0.05
+  test_split: 0.05
+  max_file_size_kb: 500
+  min_file_lines: 5
+  chunk_size: 1024
+  chunk_overlap: 128
+
+ingestion:
+  supported_extensions:
+    - ".py"
+    - ".js"
+    - ".ts"
+    - ".jsx"
+    - ".tsx"
+    - ".java"
+    - ".cpp"
+    - ".c"
+    - ".h"
+    - ".hpp"
+    - ".go"
+    - ".rs"
+    - ".rb"
+    - ".php"
+    - ".swift"
+    - ".kt"
+    - ".scala"
+    - ".sh"
+    - ".bash"
+    - ".sql"
+    - ".r"
+    - ".lua"
+    - ".cs"
+    - ".fs"
+    - ".hs"
+    - ".ex"
+    - ".exs"
+    - ".clj"
+    - ".tf"
+    - ".yaml"
+    - ".yml"
+  exclude_patterns:
+    - "node_modules"
+    - ".git"
+    - "__pycache__"
+    - "*.min.js"
+    - "dist"
+    - "build"
+    - "vendor"
+    - ".venv"
+    - "venv"
+
+inference:
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 50
+  repetition_penalty: 1.1
+  do_sample: true
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  reload: false
+
+database:
+  url: "sqlite:///data/codellm.db"
+
+logging:
+  level: "INFO"
+  file: "logs/codellm.log"
