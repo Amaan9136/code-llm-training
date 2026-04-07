@@ -1,0 +1,22 @@
+COMMON BUG
+(py31114) MY PC\project>python scripts/ingest.py --repo https://github.com/user/repo
+Usage: ingest.py [OPTIONS] COMMAND [ARGS]...
+Try 'ingest.py --help' for help.
+╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ No such option: --repo Did you mean --help?                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+(py31114) MY PC\project>python scripts/train.py --config config/training.yaml
+Usage: train.py [OPTIONS] COMMAND [ARGS]...
+Try 'train.py --help' for help.
+╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ No such option: --config                                                                                                          │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+(py31114) MY PC\project>python scripts/serve.py --model-path outputs/model  
+Usage: serve.py [OPTIONS] COMMAND [ARGS]...
+Try 'serve.py --help' for help.
+╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ No such option: --model-path                                                                                                      │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+(py31114) MY PC\project>pip cache dir
+c:\users\amaan m k\appdata\local\pip\cache
+NEEDS TO BE FIXED
