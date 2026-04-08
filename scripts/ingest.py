@@ -8,21 +8,27 @@ from rich.console import Console
 from rich.table import Table
 app = typer.Typer(help="Ingest GitHub repositories for training data")
 console = Console()
-@app.command()
-def repo(
-    url: str = typer.Argument(..., help="GitHub repository URL"),
+@app.callback(invoke_without_command=True)
+def main(
+    ctx: typer.Context,
+    repo_url: str = typer.Option(None, "--repo", help="GitHub repository URL"),
     branch: str = typer.Option("main", "--branch", "-b", help="Branch to clone"),
     output_dir: str = typer.Option("data/raw", "--output", "-o", help="Output directory"),
     keep_clone: bool = typer.Option(False, "--keep-clone", help="Keep cloned repository"),
 ):
+    if ctx.invoked_subcommand is not None:
+        return
+    if not repo_url:
+        console.print(ctx.get_help())
+        raise typer.Exit()
     from core.ingestion import ingest_repository
     from core.database import init_db
     from core.settings import load_config
     init_db()
     cfg = load_config()
-    console.print(f"[bold cyan]Ingesting[/bold cyan] {url} (branch: {branch})")
+    console.print(f"[bold cyan]Ingesting[/bold cyan] {repo_url} (branch: {branch})")
     try:
-        result = ingest_repository(url, branch, output_dir, cfg, keep_clone)
+        result = ingest_repository(repo_url, branch, output_dir, cfg, keep_clone)
         table = Table(title="Ingestion Result")
         table.add_column("Field", style="cyan")
         table.add_column("Value", style="green")

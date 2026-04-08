@@ -12,9 +12,8 @@ GitHub Repos → Ingestion → Preprocessing → Dataset → Training → Fine-t
 
 ```bash
 pip install -r requirements.txt
-python scripts/setup.py
-python scripts/ingest.py --repo https://github.com/user/repo
-python scripts/train.py --help config/training.yaml
+python scripts/ingest.py --repo https://github.com/Amaan9136/devlabs
+python scripts/train.py --config config/training.yaml
 python scripts/serve.py --model-path outputs/model
 ```
 

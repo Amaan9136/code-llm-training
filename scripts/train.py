@@ -7,13 +7,19 @@ import typer
 from rich.console import Console
 app = typer.Typer(help="Train and fine-tune LLMs on code data")
 console = Console()
-@app.command()
-def train(
-    config: str = typer.Option("config/training.yaml", "--config", "-c"),
+@app.callback(invoke_without_command=True)
+def main(
+    ctx: typer.Context,
+    config: str = typer.Option(None, "--config", "-c"),
     dataset_path: str = typer.Option(None, "--dataset", "-d"),
     run_name: str = typer.Option(None, "--name", "-n"),
     resume_from: str = typer.Option(None, "--resume", "-r"),
 ):
+    if ctx.invoked_subcommand is not None:
+        return
+    if not config:
+        console.print(ctx.get_help())
+        raise typer.Exit()
     from training.trainer import train as _train
     from core.database import init_db
     from core.settings import load_config

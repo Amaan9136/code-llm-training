@@ -7,13 +7,19 @@ import typer
 from rich.console import Console
 app = typer.Typer(help="Serve the trained model for inference")
 console = Console()
-@app.command()
-def serve(
-    model_path: str = typer.Option("outputs/model", "--model-path", "-m"),
+@app.callback(invoke_without_command=True)
+def main(
+    ctx: typer.Context,
+    model_path: str = typer.Option(None, "--model-path", "-m"),
     host: str = typer.Option("0.0.0.0", "--host"),
     port: int = typer.Option(8000, "--port", "-p"),
     config: str = typer.Option("config/training.yaml", "--config", "-c"),
 ):
+    if ctx.invoked_subcommand is not None:
+        return
+    if not model_path:
+        console.print(ctx.get_help())
+        raise typer.Exit()
     from core.database import init_db
     import os
     os.environ["CONFIG_PATH"] = config
