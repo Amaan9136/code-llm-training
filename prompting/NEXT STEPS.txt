@@ -1,22 +1,58 @@
-COMMON BUG
-(py31114) MY PC\project>python scripts/ingest.py --repo https://github.com/user/repo
-Usage: ingest.py [OPTIONS] COMMAND [ARGS]...
-Try 'ingest.py --help' for help.
-╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ No such option: --repo Did you mean --help?                                                                                       │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-(py31114) MY PC\project>python scripts/train.py --config config/training.yaml
-Usage: train.py [OPTIONS] COMMAND [ARGS]...
-Try 'train.py --help' for help.
-╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ No such option: --config                                                                                                          │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-(py31114) MY PC\project>python scripts/serve.py --model-path outputs/model  
-Usage: serve.py [OPTIONS] COMMAND [ARGS]...
-Try 'serve.py --help' for help.
-╭─ Error ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ No such option: --model-path                                                                                                      │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-(py31114) MY PC\project>pip cache dir
-c:\users\amaan m k\appdata\local\pip\cache
-NEEDS TO BE FIXED
+ISSUE:
+(trainer) D:\0 AMAAN MAIN\0 Codes and Tools\My Python & ML\LLM Training for Code>python -c "import typer; print('Ready')"
+Ready
+(trainer) D:\0 AMAAN MAIN\0 Codes and Tools\My Python & ML\LLM Training for Code>python scripts/ingest.py --repo https://github.com/Amaan9136/devlabs
+Ingesting https://github.com/Amaan9136/devlabs (branch: main)
+[04/08/26 20:34:30] INFO     Cloning                         ingestion.py:33
+                             https://github.com/Amaan9136/de                
+                             vlabs (branch: main) →                         
+                             C:\Users\AMAANM~1\AppData\Local                
+                             \Temp\codellm_clone_k2xqp6jp                   
+[04/08/26 20:34:34] INFO     Ingested 108 files (17487      ingestion.py:143
+                             lines) from                                    
+                             https://github.com/Amaan9136/d                 
+                             evlabs                                         
+                    Ingestion Result                    
+┏━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Field         ┃ Value                                ┃
+┡━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ repository_id │ fa424ac2-caee-469a-bdcd-0fa60850f323 │
+│ name          │ devlabs                              │
+│ url           │ https://github.com/Amaan9136/devlabs │
+│ files         │ 108                                  │
+│ lines         │ 17487                                │
+│ size_kb       │ 906.5509999999999                    │
+│ output_path   │ data\raw\devlabs                     │
+└───────────────┴──────────────────────────────────────┘
+(trainer) D:\0 AMAAN MAIN\0 Codes and Tools\My Python & ML\LLM Training for Code>python scripts/train.py --config config/training.yaml
+Starting training run: auto
+[04/08/26 20:34:43] ERROR    Training failed: No        trainer.py:153      
+                             dataset found. Run dataset                     
+                             building first.                                
+Training failed: No dataset found. Run dataset building first.
+(trainer) D:\0 AMAAN MAIN\0 Codes and Tools\My Python & ML\LLM Training for Code>python scripts/serve.py --model-path outputs/model
+Starting CodeLLM API
+  Model: outputs/model
+  URL: http://0.0.0.0:8000
+  Docs: http://0.0.0.0:8000/docs
+INFO:     Started server process [2648]
+INFO:     Waiting for application startup.
+[04/08/26 20:36:35] INFO     CodeLLM API started                   app.py:54
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)     
+I HAVE DATA BUT IT DID NOT FIND IT
+ALSO I HAVE THE ISUE WHERE THE PAGE IS NOT LOADING IT SAYS ADDRESS INVALID
+FIX ALL ISSUE IN THE CODE AND GIVE FULL CODE
+
+Refactor the following code using my exact coding style.
+Rules:
+* Should return full code files after the changes
+* No comments
+* No explanations
+* No extra blank lines
+* Preserve 100% exact functionality/UI/logic/design
+* Keep naming/imports unchanged unless necessary
+* Inline simple logic where possible
+* Remove redundancy without changing behavior
+* Match formatting/style from existing code exactly
+* Touch only lines that require change
